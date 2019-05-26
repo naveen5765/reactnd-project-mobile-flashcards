@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Text, View } from 'react-native'
-import { retrieveDecks } from "../utils/api";
+import { retrieveDecksFromPhoneStorage } from "../utils/api";
 import { receiveDecks } from '../actions'
 import TextButton from './TextButton'
 
 class DeckList extends Component {
 
   componentDidMount() {
-    retrieveDecks()
+    retrieveDecksFromPhoneStorage()
       .then(decks => this.props.receiveDecks(decks))
   }
 
@@ -26,7 +26,7 @@ class DeckList extends Component {
         </View>
       : <View>
           <Text>You dont have any decks</Text>
-          <TextButton style={{margin: 20}} onPress={this.addDeck}>
+          <TextButton style={{flex:1}}onPress={this.addDeck}>
             Add Deck
           </TextButton>
         </View>

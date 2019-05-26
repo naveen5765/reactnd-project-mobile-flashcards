@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS } from '../actions'
+import { RECEIVE_DECKS, CREATE_DECK } from '../actions'
 
 function decks(state = {}, action) {
     switch(action.type){
@@ -6,6 +6,14 @@ function decks(state = {}, action) {
             return {
                 ...state,
                 ...action.decks
+            }
+        case CREATE_DECK :
+            return {
+                ...state,
+                [action.deckName]: {
+                    title: action.deckName,
+                    questions: []
+                }
             }
         default:
             return state
