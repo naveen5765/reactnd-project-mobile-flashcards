@@ -8,12 +8,12 @@ import { saveDeckInPhoneStorage } from '../utils/api'
 
 class AddDeck extends Component {
   state = {
-    input: ''
+    input: 'Sample'
   };
   
   handleInputChange = (input) => {
     this.setState(() => ({
-      input: input.value
+      input
     }));
   }
 
@@ -34,7 +34,8 @@ class AddDeck extends Component {
           style={styles.input}
           underlineColorAndroid='transparent'
           placeholder='Deck Title'
-          onChange={this.handleInputChange}
+          value={this.state.input}
+          onChangeText={this.handleInputChange}
         />
         <TextButton onPress={this.createDeck}>
           <Text>Create</Text>

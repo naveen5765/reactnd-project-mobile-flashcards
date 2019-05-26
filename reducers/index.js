@@ -8,6 +8,7 @@ function decks(state = {}, action) {
                 ...action.decks
             }
         case CREATE_DECK :
+            debugger;
             return {
                 ...state,
                 [action.deckName]: {
