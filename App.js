@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { View, Platform, StatusBar } from 'react-native'
 import { Constants } from "expo";
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation'
+import { setLocalNotification } from './utils/helper'
 import reducers from './reducers'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { purple, white } from './utils/colors'
@@ -58,7 +59,7 @@ const Tabs = createBottomTabNavigator(
   }
 )
 
-const MainNavigator = createAppContainer(createStackNavigator (
+const RootStack = createStackNavigator (
   {
     Home: {
       screen: Tabs,
@@ -74,20 +75,38 @@ const MainNavigator = createAppContainer(createStackNavigator (
     },
     AddCard: {
       screen: AddCard,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: purple,
+        }
+      }
     },
     Quiz: {
       screen: Quiz,
+      navigationOptions: {
+        headerTintColor: white,
+        headerStyle: {
+          backgroundColor: purple,
+        }
+      }
     }
   }
-))
+)
 
-export default class App extends React.Component {
+const AppContainer = createAppContainer(RootStack);
+
+export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
       <Provider store={createStore(reducers)}>
         <View style={{flex: 1}}>
           <FlashCardsStatusBar backgroundColor={purple} barStyle="light-content" />
-          <MainNavigator />
+          <AppContainer />
         </View>
       </Provider>
     );
