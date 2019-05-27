@@ -31,6 +31,17 @@ class AddDeck extends Component {
       })
       return
     }
+    if(this.props.decks.filter(deck => deck.title === deckName).length > 0){
+      Toast.show('This Deck Name is already existing, please choose a different name', {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0
+      })
+      return
+    }
     this.props.createDeck(deckName)
     saveDeckInPhoneStorage(deckName)
     this.props.navigation.navigate('Deck', { title:deckName, questions: [] })
@@ -84,8 +95,12 @@ const styles = StyleSheet.create({
   }  
 });
 
+const mapStateToProps = (decks) => ({
+  decks: decks!== undefined ? Object.values(decks) : {}
+});
+
 const mapDispatchToProps = dispatch => ({
   createDeck: (name) => dispatch(createDeck(name))
 });
 
-export default connect(null, mapDispatchToProps)(AddDeck)
+export default connect(mapStateToProps, mapDispatchToProps)(AddDeck)
