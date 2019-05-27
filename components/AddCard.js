@@ -8,9 +8,11 @@ import { saveCardInPhoneStorage } from '../utils/api'
 import Toast from 'react-native-root-toast';
 
 class AddCard extends Component {
-  static navigationOptions = () => ({
-    title: "Add Card"
-  });
+  static navigationOptions = () => {
+    return {
+      title: "Add Card"
+    }
+  }
 
   state = {
     question: '',

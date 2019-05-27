@@ -21,7 +21,7 @@ class AddDeck extends Component {
   createDeck = () => {
     const deckName = this.state.input
     if(deckName.trim() === ''){
-      Toast.show('Please do a valid Deck Name', {
+      Toast.show('Please give a valid Deck Name', {
         duration: Toast.durations.LONG,
         position: Toast.positions.BOTTOM,
         shadow: true,

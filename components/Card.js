@@ -29,7 +29,7 @@ class Card extends Component {
             <TouchableOpacity 
                 style={styles.toggleQuestion}
                 onPress={this.toggleQuestion}>
-                <Text>
+                <Text style={{color:red}}>
                     {`See ${showQuestion ? "Answer" : "Question"}`}
                 </Text>
             </TouchableOpacity>
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
       textAlign: "center"
     },
     toggleQuestion: {
-        color: red,
         fontSize: 3,
         marginTop: 5,
         alignItems: "center",
