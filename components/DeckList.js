@@ -6,9 +6,11 @@ import { receiveDecks } from '../actions'
 import { white, gray } from '../utils/colors'
 import TextButton from './TextButton'
 
-const DeckSummary = ({ title, questions }) => {
+const DeckSummary = ({ title, questions, onPress }) => {
   return (
-    <TouchableOpacity style={styles.deckSummaryContainer}>
+    <TouchableOpacity 
+      style={styles.deckSummaryContainer}
+      onPress={() => onPress(title, questions)}>
       <Text style={styles.deckSummaryName}>{title}</Text>
       <Text style={styles.deckSummaryCards}>
         {`${questions.length} cards`}
@@ -28,8 +30,12 @@ class DeckList extends Component {
     this.props.navigation.navigate('AddDeck')
   }
 
+  showDetails = (title, questions) => {
+    this.props.navigation.navigate('Deck', { title:title, questions:questions })
+  }
+
   renderItem = ({ item }) => {
-    return <DeckSummary {...item}/>
+    return <DeckSummary {...item} onPress={this.showDetails}/>
   }
 
   _keyExtractor = (item) => item.title;
@@ -47,7 +53,7 @@ class DeckList extends Component {
           />
         </View>
       : <View style={styles.deckNotAvailable}>
-          <Text>You dont have any decks</Text>
+          <Text style={styles.deckInfo}>You dont have any decks</Text>
           <TextButton onPress={this.addDeck}>
             Add Deck
           </TextButton>
@@ -90,6 +96,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: gray,
     marginBottom: 5
+  },
+  deckInfo: {
+    fontSize: 30,
+    marginBottom: 10
   }
 });
 
