@@ -13,12 +13,12 @@ export default function TextButton ({ children, onPress, style = {} }) {
 const styles = StyleSheet.create({
   label: {
     textAlign: 'center',
-    color: white,
-    backgroundColor: black,
-    width: 150,
-    padding: 20
+    width: 250,
+    padding: 20,
+    fontSize: 20
   },
   btn: {
+    marginTop: 5,
     borderRadius: 5,
     borderColor: black,
     borderWidth: 2,
