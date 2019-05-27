@@ -5,10 +5,11 @@ import { createDeck } from '../actions'
 import TextButton from './TextButton'
 import { white, black } from '../utils/colors';
 import { saveDeckInPhoneStorage } from '../utils/api'
+import Toast from 'react-native-root-toast';
 
 class AddDeck extends Component {
   state = {
-    input: 'Sample'
+    input: ''
   };
   
   handleInputChange = (input) => {
@@ -18,9 +19,21 @@ class AddDeck extends Component {
   }
 
   createDeck = () => {
-    this.props.createDeck(this.state.input)
-    saveDeckInPhoneStorage(this.state.input)
-    this.props.navigation.navigate('Deck')
+    const deckName = this.state.input
+    if(deckName.trim() === ''){
+      Toast.show('Please do a valid Deck Name', {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0
+      })
+      return
+    }
+    this.props.createDeck(deckName)
+    saveDeckInPhoneStorage(deckName)
+    this.props.navigation.navigate('Deck', { title:deckName, questions: [] })
     this.setState({
       input: ''
     })
@@ -37,7 +50,9 @@ class AddDeck extends Component {
           value={this.state.input}
           onChangeText={this.handleInputChange}
         />
-        <TextButton onPress={this.createDeck}>
+        <TextButton
+          style={{backgroundColor: black, color: white}}
+          onPress={this.createDeck}>
           <Text>Create</Text>
         </TextButton>        
       </KeyboardAvoidingView>
