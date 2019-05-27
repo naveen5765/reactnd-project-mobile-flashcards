@@ -96,8 +96,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (decks, { navigation }) => ({
-  deck: decks[navigation.getParam('title')],
-  decks
+  deck: decks[navigation.getParam('title')]
 });
 
 const mapDispatchToProps = dispatch => ({
